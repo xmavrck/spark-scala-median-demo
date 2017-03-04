@@ -27,23 +27,33 @@ object Main extends App {
           e.printStackTrace()
           sys.exit(1)
       }
-
+// converting file into rdd
     val input = sparkContext.textFile(filePath)
 
     val allMedians = input
+      // splitting file line by line
       .flatMap(line => line.split("\n"))
       .map(line => {
+        // getting median per line
         getMedian(line)
       }).collect().toList
+    // getting median of all median
     println(getMedian(allMedians mkString " "))
   }
 
+  // return median of any given string separeted by space
   def getMedian(line: String): Int = {
+    // split the line by space and converting it to array and then sorting it
     val numbers = line.split(" ").sortBy(_.toInt)
+    // if number of elements are even median
+    // median= (number of elements/2)
+    // finalMedian= (numbers(median-1) +numbers(median))/2
     if (numbers.length % 2 == 0) {
       val median = numbers.length / 2
       (numbers(median - 1).toInt + numbers(median).toInt) / 2
-    } else {
+    } else
+    // if number of elements are odd
+    {
       numbers(numbers.length / 2).toInt
     }
   }
