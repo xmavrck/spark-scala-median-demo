@@ -19,7 +19,8 @@ object Main extends App {
       try {
         val prop = new Properties()
         // Load a properties file config.properties from project classpath, and retrieved the property value.
-        prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"))
+//        prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"))
+        prop.load(new FileInputStream("/home/xenon/DemoMedian/src/main/resources/config.properties"))
         // retrieved the property value
         (prop.getProperty("file.path"))
       } catch {
