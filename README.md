@@ -1,5 +1,7 @@
 # Installation #
 
+you need to update path of your sample input file in config.properties in resource folder
+
 Enter the project root directory of project and build using [SBT] 
 ```
 sbt assembly
