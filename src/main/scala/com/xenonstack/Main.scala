@@ -1,9 +1,11 @@
 package com.xenonstack
 
-import java.io.FileInputStream
+import java.io.{FileInputStream, InputStream}
 import java.util.Properties
 
 import org.apache.spark.{SparkConf, SparkContext}
+
+import scala.io.Source
 
 /**
   * Created by xenon on 4/3/17.
@@ -13,13 +15,11 @@ object Main extends App {
   override def main(args: Array[String]): Unit = {
     val conf = new SparkConf().setAppName("spark-scala-median-demo").setMaster("local")
     val sparkContext = new SparkContext(conf)
-
-
     val (filePath) =
       try {
         val prop = new Properties()
         // Load a properties file config.properties from project classpath, and retrieved the property value.
-        prop.load(new FileInputStream("/home/xenon/DemoMedian/src/main/resources/config.properties"))
+        prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"))
         // retrieved the property value
         (prop.getProperty("file.path"))
       } catch {
